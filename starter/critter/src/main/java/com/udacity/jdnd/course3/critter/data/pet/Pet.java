@@ -25,6 +25,13 @@ public class Pet {
     @ManyToMany(mappedBy = "pets")
     private List<Schedule> schedules;
 
+    public Pet() {
+    }
+
+    public Pet(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

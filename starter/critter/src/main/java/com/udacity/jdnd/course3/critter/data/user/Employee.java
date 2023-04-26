@@ -26,6 +26,13 @@ public class Employee {
     @ManyToMany(mappedBy = "employees")
     private List<Schedule> schedules;
 
+    public Employee() {
+    }
+
+    public Employee(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
