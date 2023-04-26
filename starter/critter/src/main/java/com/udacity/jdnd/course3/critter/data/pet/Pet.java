@@ -1,15 +1,17 @@
 package com.udacity.jdnd.course3.critter.data.pet;
 
+import com.udacity.jdnd.course3.critter.data.schedule.Schedule;
 import com.udacity.jdnd.course3.critter.data.user.Customer;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private PetType type;
@@ -18,9 +20,10 @@ public class Pet {
     private LocalDate birthDate;
     @Column(name = "notes", length = 1000)
     private String notes;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private Customer customer;
+    @Column(name = "ownerId")
+    private Long ownerId;
+    @ManyToMany(mappedBy = "pets")
+    private List<Schedule> schedules;
 
     public Long getId() {
         return id;
@@ -62,11 +65,19 @@ public class Pet {
         this.notes = notes;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }

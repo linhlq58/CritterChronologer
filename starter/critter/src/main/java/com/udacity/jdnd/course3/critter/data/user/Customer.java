@@ -4,6 +4,7 @@ import com.udacity.jdnd.course3.critter.data.pet.Pet;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,8 +17,9 @@ public class Customer {
     private String phoneNumber;
     @Column(name = "notes", length = 1000)
     private String notes;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Pet> pets;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ownerId")
+    private List<Pet> pets = new ArrayList<>();
 
     public Long getId() {
         return id;
